@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>포켓몬GO IV 계산기</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>포켓몬GO IV 계산기</h1>
+  <p class="subtitle">CP · HP · 감정 결과로 개체값(IV)과 100% 여부를 확인하세요</p>
+</header>
+
+<main>
+  <section class="card">
+    <h2>1. 포켓몬 선택</h2>
+    <div class="field">
+      <label for="species-search">포켓몬 이름 (한글/영문/도감번호)</label>
+      <input id="species-search" type="text" placeholder="예: 피카츄, pikachu, 25" autocomplete="off">
+      <div id="species-results" class="autocomplete-list" hidden></div>
+    </div>
+    <div id="species-selected" class="selected-species" hidden>
+      <span id="selected-name"></span>
+      <span id="selected-stats" class="stats-inline"></span>
+      <button id="species-clear" type="button" class="link-btn">변경</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>2. 포켓몬 정보 입력</h2>
+    <div class="field-row">
+      <div class="field">
+        <label for="input-cp">전투력 (CP)</label>
+        <input id="input-cp" type="number" inputmode="numeric" min="10" placeholder="예: 1523">
+      </div>
+      <div class="field">
+        <label for="input-hp">체력 (HP)</label>
+        <input id="input-hp" type="number" inputmode="numeric" min="10" placeholder="예: 93">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label for="trainer-level">트레이너 레벨 (선택)</label>
+        <input id="trainer-level" type="number" inputmode="numeric" min="1" max="50" placeholder="예: 32">
+      </div>
+      <div class="field">
+        <label for="buddy-boost">버디 상태</label>
+        <select id="buddy-boost">
+          <option value="0">없음</option>
+          <option value="1">버디 동반 중 (+1레벨)</option>
+          <option value="2">최고의 버디 (+2레벨)</option>
+        </select>
+      </div>
+    </div>
+    <label class="checkbox-row">
+      <input type="checkbox" id="weather-boost">
+      날씨 부스트로 잡음 (반짝이는 포켓몬, 최대 레벨 +4)
+    </label>
+    <button id="calc-btn" type="button" class="primary-btn">IV 계산하기</button>
+  </section>
+
+  <section class="card" id="appraisal-card" hidden>
+    <h2>3. 팀 리더 감정 결과로 좁히기 <span class="optional">(선택)</span></h2>
+    <p class="hint">포켓몬 정보 화면 &rarr; 감정하기에서 나온 능력치 막대 색을 그대로 선택하면 결과가 더 정확해집니다.</p>
+    <div class="appraisal-grid">
+      <div class="appraisal-stat">
+        <span class="appraisal-label">공격</span>
+        <div class="tier-btns" data-stat="atk">
+          <button type="button" data-tier="0-7">낮음</button>
+          <button type="button" data-tier="8-12">보통</button>
+          <button type="button" data-tier="13-14">우수</button>
+          <button type="button" data-tier="15-15">최고</button>
+          <button type="button" data-tier="" class="tier-clear">모름</button>
+        </div>
+      </div>
+      <div class="appraisal-stat">
+        <span class="appraisal-label">방어</span>
+        <div class="tier-btns" data-stat="def">
+          <button type="button" data-tier="0-7">낮음</button>
+          <button type="button" data-tier="8-12">보통</button>
+          <button type="button" data-tier="13-14">우수</button>
+          <button type="button" data-tier="15-15">최고</button>
+          <button type="button" data-tier="" class="tier-clear">모름</button>
+        </div>
+      </div>
+      <div class="appraisal-stat">
+        <span class="appraisal-label">체력</span>
+        <div class="tier-btns" data-stat="sta">
+          <button type="button" data-tier="0-7">낮음</button>
+          <button type="button" data-tier="8-12">보통</button>
+          <button type="button" data-tier="13-14">우수</button>
+          <button type="button" data-tier="15-15">최고</button>
+          <button type="button" data-tier="" class="tier-clear">모름</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="card" id="result-card" hidden>
+    <h2>결과</h2>
+    <div id="verdict" class="verdict"></div>
+    <div id="result-summary" class="result-summary"></div>
+    <div id="result-list" class="result-list"></div>
+  </section>
+</main>
+
+<footer>
+  <p>종족값 출처: PvPoke 커뮤니티 데이터 · CPM(레벨 배율) 출처: 나이언틱 공식 게임 마스터 데이터 · 한글 이름 출처: PokeAPI</p>
+  <p>홈 화면에 추가하면 앱처럼 빠르게 켜서 쓸 수 있어요 (Safari 공유 버튼 &rarr; 홈 화면에 추가).</p>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
